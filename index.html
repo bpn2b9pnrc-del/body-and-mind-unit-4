@@ -1,0 +1,974 @@
+<!doctype html>
+<html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body and Mind - Unit 4</title>
+<style>
+:root{--pink:#ff5fa2;--yellow:#ffd23f;--blue:#3ec1f3;--green:#4cd964;--purple:#9b5de5;--orange:#ff9f1c;--ink:#2b2d42;}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Atkinson Hyperlegible","Lexend","Verdana","Trebuchet MS",Arial,sans-serif;font-size:20px;line-height:1.6;letter-spacing:.03em;word-spacing:.12em;color:var(--ink);
+background:linear-gradient(135deg,#fff3b0,#ffd6e8 45%,#c9f0ff);min-height:100vh;padding-bottom:60px}
+header{background:linear-gradient(90deg,var(--purple),var(--pink),var(--orange));color:#fff;text-align:center;padding:18px 12px;box-shadow:0 4px 12px #0003}
+header h1{margin:0;font-size:clamp(1.6rem,5vw,2.6rem);text-shadow:2px 2px 0 #0004}
+header p{margin:4px 0 0;font-size:1.1rem}
+#scorebar{position:sticky;top:0;z-index:20;background:#fff;display:flex;justify-content:center;gap:18px;align-items:center;padding:8px;border-bottom:4px solid var(--yellow);font-weight:bold;font-size:1.1rem;flex-wrap:wrap}
+#scorebar span.pill{background:var(--yellow);padding:4px 14px;border-radius:20px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px}
+nav button{font:inherit;font-weight:bold;border:none;border-radius:16px;padding:10px 16px;color:#fff;cursor:pointer;box-shadow:0 4px 0 #0003;transition:.15s}
+nav button:nth-child(1){background:var(--purple)}nav button:nth-child(2){background:var(--blue)}nav button:nth-child(3){background:var(--green)}
+nav button:nth-child(4){background:var(--orange)}nav button:nth-child(5){background:var(--pink)}nav button:nth-child(6){background:#1a6fd6}
+nav button.active{transform:translateY(3px);box-shadow:0 1px 0 #0003;outline:4px solid #fff}
+main{max-width:940px;margin:0 auto;padding:0 12px}
+section{display:none;background:#fffd;border-radius:24px;padding:18px;box-shadow:0 6px 18px #0002;animation:pop .3s}
+section.active{display:block}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+h2{margin-top:0;color:var(--purple)}
+.lead{margin-top:-6px}
+details{background:#fff;border:4px solid var(--blue);border-radius:18px;margin:12px 0;overflow:hidden}
+details:nth-of-type(2){border-color:var(--pink)}details:nth-of-type(3){border-color:var(--green)}
+details:nth-of-type(4){border-color:var(--orange)}
+summary{cursor:pointer;font-weight:bold;font-size:1.25rem;padding:12px 16px;background:#f4faff}
+.content{padding:6px 16px 16px;line-height:1.55}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:1.15rem}
+th,td{border:2px solid #fff;padding:6px 8px;text-align:center}
+th{background:var(--purple);color:#fff}td{background:#eef}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--yellow);border-radius:14px;padding:6px 12px;font-weight:bold;font-size:1.1rem;display:inline-block}
+.chip small{display:block;font-weight:normal;font-size:.8rem}
+.chip.red{background:#ffb3c1}.chip.green{background:#b8f2c0}
+.box{background:#fff8d6;border-left:8px solid var(--orange);padding:8px 12px;border-radius:10px;margin:10px 0}
+.say{cursor:pointer;border:none;background:var(--blue);color:#fff;border-radius:50%;width:28px;height:28px;font-size:.9rem;margin-left:4px}
+.must{color:#0a8f2a;font-weight:bold}.mustnt{color:#d6204f;font-weight:bold}
+.card{background:#fff;border-radius:18px;padding:16px;margin:10px 0;box-shadow:0 3px 8px #0002}
+.q{font-size:1.6rem;margin:10px 0;line-height:1.7}
+.bigemo{font-size:4rem;line-height:1.1;text-align:center}
+button,.opt,.chip,.bubble,summary,th,td{font-family:inherit;letter-spacing:.03em}
+.blank{display:inline-block;min-width:70px;border-bottom:4px dashed var(--pink);text-align:center;color:var(--pink)}
+.opts{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.opt{font:inherit;font-size:1.3rem;font-weight:bold;border:none;border-radius:16px;padding:12px 18px;background:var(--blue);color:#fff;cursor:pointer;box-shadow:0 4px 0 #0003}
+.opt:hover{filter:brightness(1.1)}
+.opt.ok{background:var(--green)}.opt.bad{background:#ff4d6d}
+.opt:disabled{cursor:default}
+.mm{flex:1;min-width:130px;font-size:1.3rem;padding:18px}
+.mm.m{background:var(--green)}.mm.mn{background:#ff4d6d}
+.feedback{font-size:1.15rem;font-weight:bold;min-height:30px;margin-top:6px}
+.next{font:inherit;font-weight:bold;background:var(--purple);color:#fff;border:none;border-radius:16px;padding:10px 22px;cursor:pointer;box-shadow:0 4px 0 #0003}
+.ghost{font:inherit;font-weight:bold;background:#fff;color:var(--purple);border:3px solid var(--purple);border-radius:16px;padding:7px 18px;cursor:pointer;margin-left:8px}
+.bar{height:14px;background:#ddd;border-radius:10px;overflow:hidden;margin-bottom:8px}
+.bar div{height:100%;background:linear-gradient(90deg,var(--green),var(--yellow));width:0;transition:.3s}
+.tabs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.tabs button{font:inherit;font-weight:bold;border:3px solid var(--purple);background:#fff;color:var(--purple);border-radius:14px;padding:6px 14px;cursor:pointer}
+.tabs button.on{background:var(--purple);color:#fff}
+.lvltabs{display:flex;gap:10px;margin:8px 0 14px}
+.lvltabs button{font:inherit;font-size:1.5rem;font-weight:bold;border:4px solid var(--orange);background:#fff;color:var(--orange);border-radius:18px;padding:4px 22px;cursor:pointer;letter-spacing:.1em}
+.lvltabs button.on{background:var(--orange);color:#fff;box-shadow:0 4px 0 #0003}
+.sec{display:inline-block;color:#fff;border-radius:0 18px 18px 0;padding:4px 22px 4px 14px;margin:18px 0 6px;font-size:1.35rem}
+.sec.c1{background:var(--blue)}.sec.c2{background:var(--pink)}.sec.c3{background:var(--green)}.sec.c4{background:var(--orange)}
+.ex{background:#fff;border-radius:18px;padding:12px 16px;margin:10px 0;box-shadow:0 3px 8px #0002}
+.exh{display:flex;gap:10px;align-items:flex-start;font-weight:bold;margin-bottom:6px}
+.num{background:var(--purple);color:#fff;border-radius:50%;min-width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center}
+.items{padding-left:30px;margin:6px 0}
+.items li{margin:10px 0;line-height:2.1}
+.items.cols{columns:2;column-gap:30px}
+@media(max-width:620px){.items.cols{columns:1}}
+.gap{font:inherit;font-weight:bold;color:var(--purple);border:none;border-bottom:3px dashed var(--pink);background:#fff7fb;border-radius:8px 8px 0 0;padding:0 6px;text-align:center;min-width:60px;max-width:100%}
+.gap::placeholder{color:#c9a;font-weight:normal;letter-spacing:.12em}
+.gap.long{display:block;width:100%;text-align:left;margin-top:4px}
+.gap.ok{background:#b8f2c0;border-bottom-color:var(--green);color:#087a22}
+.gap.bad{background:#ffd0d8;border-bottom-color:#ff4d6d;color:#c0143c}
+.gap.show{background:#ffe9b8;border-bottom-color:var(--orange);color:#9a5b00}
+select.gap{padding:2px 8px}
+.exans{color:#1a6fd6;font-weight:bold;border-bottom:3px solid #1a6fd6}
+.tag{background:var(--yellow);border-radius:10px;font-size:.7rem;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;border:3px dashed var(--blue);border-radius:14px;background:#f1fbff}
+.bank .chip{border:none;cursor:default}
+.bank button.chip{cursor:pointer;box-shadow:0 3px 0 #0003}
+.bank button.chip.sel{background:var(--pink);color:#fff;transform:scale(1.08)}
+.bank button.chip.placed{background:#b8f2c0;box-shadow:none;cursor:default}
+.endings{background:#f1fbff;border:3px dashed var(--blue);border-radius:14px;padding:6px 14px;margin:8px 0}
+.endings p{margin:2px 0}
+.choice{display:inline-flex;gap:6px;vertical-align:middle}
+.opt2{font:inherit;font-weight:bold;border:3px solid var(--blue);background:#fff;color:var(--blue);border-radius:12px;padding:0 12px;cursor:pointer}
+.opt2.ok{background:var(--green);border-color:var(--green);color:#fff}
+.opt2.bad{background:#ff4d6d;border-color:#ff4d6d;color:#fff;opacity:.7}
+.opt2.sel{background:var(--purple);border-color:var(--purple);color:#fff}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0}
+@media(max-width:560px){.cols3{grid-template-columns:1fr}}
+.colbox{border:4px solid var(--purple);border-radius:16px;background:#faf5ff;cursor:pointer;min-height:90px;overflow:hidden}
+.colbox:nth-child(2){border-color:var(--green);background:#f3fff5}.colbox:nth-child(3){border-color:var(--orange);background:#fff8ee}
+.colh{background:var(--purple);color:#fff;text-align:center;font-weight:bold;padding:4px}
+.colbox:nth-child(2) .colh{background:var(--green)}.colbox:nth-child(3) .colh{background:var(--orange)}
+.drop{display:flex;flex-wrap:wrap;gap:6px;padding:8px}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.free{font:inherit;color:var(--purple);font-weight:bold;border:none;border-bottom:3px solid var(--blue);background:#f1fbff;border-radius:8px 8px 0 0;padding:0 6px;min-width:120px;max-width:100%}
+textarea.free{display:block;width:100%;min-height:60px;border:3px solid var(--blue);border-radius:12px;padding:6px 10px;margin-top:4px}
+.tick{display:flex;gap:10px;align-items:flex-start;margin:6px 0;cursor:pointer}
+.tick input{width:26px;height:26px;accent-color:var(--green);flex:none;margin-top:4px}
+.reading{background:#fffdf0;border:4px solid var(--yellow);border-radius:18px;padding:10px 18px;font-size:1.15rem}
+.ws{display:grid;gap:3px;margin:10px auto;max-width:520px}
+.ws button{aspect-ratio:1/1;border:none;border-radius:8px;font:inherit;font-weight:bold;font-size:1.05rem;background:#fff;color:var(--ink);cursor:pointer;box-shadow:0 2px 0 #0003;padding:0;letter-spacing:0}
+.ws button.st{background:var(--yellow)}.ws button.fd{background:#b8f2c0}
+.wl{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0}
+.wl span{background:var(--yellow);border-radius:12px;padding:2px 12px;font-weight:bold}
+.wl span.fd{text-decoration:line-through;background:#b8f2c0}
+.keys{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px 0}
+.keys button{font:inherit;font-weight:bold;width:42px;height:42px;border:none;border-radius:10px;background:var(--blue);color:#fff;cursor:pointer;padding:0}
+.keys button.ok{background:var(--green)}.keys button.no{background:#ff4d6d;opacity:.5}
+.hang{font-size:2.2rem;letter-spacing:.3em;text-align:center;font-weight:bold;color:var(--purple);min-height:60px}
+.built{min-height:62px;border:3px dashed var(--purple);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;background:#faf5ff}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.pool button,.built button{font:inherit;font-weight:bold;font-size:1.15rem;border:none;border-radius:12px;padding:6px 14px;background:var(--orange);color:#fff;cursor:pointer;box-shadow:0 3px 0 #0003}
+.built button{background:var(--purple)}
+.pool button:disabled{opacity:.25;cursor:default}
+#toast{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(0);background:#fff;border:6px solid var(--yellow);border-radius:28px;padding:18px 28px;font-size:clamp(1.4rem,6vw,2.2rem);font-weight:bold;color:var(--purple);z-index:50;pointer-events:none;box-shadow:0 10px 30px #0006;text-align:center}
+#toast.show{animation:toast 1.3s forwards}
+@keyframes toast{0%{transform:translate(-50%,-50%) scale(0)}20%{transform:translate(-50%,-50%) scale(1.1)}80%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.fall{position:fixed;top:-40px;font-size:2rem;z-index:40;pointer-events:none;animation:fall 2.2s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.result{text-align:center}.result .big{font-size:4rem}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
+.mem{aspect-ratio:1/1;border:none;border-radius:16px;font:inherit;font-weight:bold;font-size:clamp(.8rem,2.6vw,1.05rem);cursor:pointer;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;box-shadow:0 4px 0 #0003;padding:4px}
+.mem.open{background:#fff;color:var(--ink);border:4px solid var(--blue)}
+.mem.done{background:#b8f2c0;color:var(--ink);border:4px solid var(--green);pointer-events:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧒 Body and Mind 🧠</h1>
+  <p>Unit 4 · Get ready for your English exam! ⭐</p>
+</header>
+<div id="scorebar">
+  <span class="pill">⭐ Points: <span id="score">0</span></span>
+  <span class="pill" id="level">🌱 Beginner</span>
+</div>
+<nav id="nav">
+  <button data-t="theory" class="active">📚 Theory</button>
+  <button data-t="vocab">🧍 Vocabulary</button>
+  <button data-t="gram">✏️ Grammar</button>
+  <button data-t="read">🎧 Listening</button>
+  <button data-t="more">➕ More Practice</button>
+  <button data-t="games">🎮 Games</button>
+</nav>
+<main>
+
+<!-- THEORY -->
+<section id="theory" class="active">
+<h2>📚 Learn the Theory</h2>
+<p>Toca cada tarjeta para abrirla. Con el botón 🔊 puedes escuchar cómo se dice en inglés.</p>
+
+<details open>
+<summary>1️⃣ Vocabulary: Parts of the body</summary>
+<div class="content">
+<div class="chips" id="bodyChips"></div>
+<div class="box">⚠️ <b>Plurales especiales:</b> foot ➜ <b>feet</b> 🦶🦶 · tooth ➜ <b>teeth</b> 🦷🦷</div>
+</div>
+</details>
+
+<details>
+<summary>2️⃣ Vocabulary: Symptoms 🤒</summary>
+<div class="content">
+<div class="chips" id="sympChips"></div>
+<h3>🗣️ How do we talk about symptoms?</h3>
+<ul>
+<li><b>have got / has got</b> + síntoma:<br>
+I've got <b>a headache</b>. <button class="say" data-s="I've got a headache.">🔊</button><br>
+She has got <b>a rash</b> and <b>a sore throat</b>. <button class="say" data-s="She has got a rash and a sore throat.">🔊</button></li>
+<li><b>feel sick</b> (sentirse mal):<br>
+I can't eat. I feel <b>sick</b>. <button class="say" data-s="I can't eat. I feel sick.">🔊</button></li>
+<li><b>hurts</b> (duele) para una parte del cuerpo:<br>
+My <b>back</b> hurts. <button class="say" data-s="My back hurts.">🔊</button><br>
+Grandpa's <b>knee</b> hurts. <button class="say" data-s="Grandpa's knee hurts.">🔊</button></li>
+<li>Con <b>ache</b> (dolor): stomach<b>ache</b> · ear<b>ache</b> · tooth<b>ache</b> · head<b>ache</b></li>
+</ul>
+<div class="box">💡 Truco: <b>a</b> cough, <b>a</b> headache, <b>a</b> rash, <b>a</b> runny nose, <b>a</b> sore throat, <b>a</b> temperature ✅ pero <b>earache</b>, <b>stomach ache</b>, <b>toothache</b> ❌ sin "a".</div>
+</div>
+</details>
+
+<details>
+<summary>3️⃣ Grammar 1: Object pronouns</summary>
+<div class="content">
+<div class="box">📌 <b>Regla 1:</b> un object pronoun va <b>después de un verbo</b> (<i>Look at <b>him</b></i>) o de una <b>preposición</b> (<i>Talk <b>to</b> her</i>).<br>
+📌 <b>Regla 2:</b> los object pronouns <b>reemplazan a los sustantivos</b>, así no repetimos el nombre. 🙂</div>
+<p>Ejemplo: <i>I like <b>Anna</b>. I talk to <b>her</b>.</i> <button class="say" data-s="I like Anna. I talk to her.">🔊</button></p>
+<table>
+<tr><th>Subject</th><th>Object</th><th>Example</th></tr>
+<tr><td>I</td><td><b>me</b></td><td>Hear <b>me</b>.</td></tr>
+<tr><td>you (uno o varios)</td><td><b>you</b></td><td>I like <b>you</b>.</td></tr>
+<tr><td>he</td><td><b>him</b></td><td>Look at <b>him</b>.</td></tr>
+<tr><td>she</td><td><b>her</b></td><td>Talk to <b>her</b>.</td></tr>
+<tr><td>it</td><td><b>it</b></td><td>We use <b>it</b>.</td></tr>
+<tr><td>we</td><td><b>us</b></td><td>Lots of <b>us</b> read books.</td></tr>
+<tr><td>they</td><td><b>them</b></td><td>Uses <b>them</b> to have conversations.</td></tr>
+</table>
+<div class="box">💡 Truco: <b>him</b> = chico 👦, <b>her</b> = chica 👧, <b>them</b> = varios 👥, <b>us</b> = yo y otros 🙋‍♂️🙋‍♀️.</div>
+</div>
+</details>
+
+<details>
+<summary>4️⃣ Grammar 2 and 3: Can and Must</summary>
+<div class="content">
+<h3>✅ Can for permission</h3>
+<div class="box">📌 Usamos <b>can</b> para <b>pedir</b> y <b>dar permiso</b>.<br>
+👍 Afirmativo: <i>We <b>can</b> go to the cinema.</i> <button class="say" data-s="We can go to the cinema.">🔊</button><br>
+👎 Negativo: <i>They <b>can't</b> go to the party.</i> <button class="say" data-s="They can't go to the party.">🔊</button><br>
+❓ Pregunta: <i><b>Can</b> she go to the concert?</i> ➜ Respuesta corta: <i>Yes, she <b>can</b>. / No, she <b>can't</b>.</i></div>
+<p>❓ <b>Can I go out?</b> <button class="say" data-s="Can I go out?">🔊</button><br>❓ <b>Can she go to the concert?</b> <button class="say" data-s="Can she go to the concert?">🔊</button></p>
+<table>
+<tr><th>👍 Yes</th><th>👎 No</th></tr>
+<tr><td>Yes, you can.<br>Yes, she can.</td><td>No, you can't.<br>No, she can't.</td></tr>
+</table>
+<div class="chips">
+<span class="chip green">Of course!<small>¡Por supuesto!</small></span>
+<span class="chip green">Sure, no problem!<small>¡Claro, sin problema!</small></span>
+<span class="chip red">No, sorry.<small>No, lo siento.</small></span>
+<span class="chip red">I'm afraid not.<small>Me temo que no.</small></span>
+</div>
+<h3>🚦 Must / Mustn't</h3>
+<div class="box">📌 <b>must</b> y <b>mustn't</b> van <b>antes del infinitivo sin "to"</b>.<br>
+✅ <b>Must</b> = obligación (tienes que). ⛔ <b>Mustn't</b> = prohibición (no debes).</div>
+<table>
+<tr><th>Subject</th><th>Affirmative</th><th>Negative</th></tr>
+<tr><td>I / You / He / She / It / We / You / They</td><td><span class="must">must</span> take the medicine.</td><td><span class="mustnt">mustn't</span> get out of bed.</td></tr>
+</table>
+<p><span class="must">✅ MUST</span> = <b>tienes que</b> (obligación). Después de must va el verbo <b>sin "to"</b>.</p>
+<ul>
+<li>You <span class="must">must</span> take the medicine. <button class="say" data-s="You must take the medicine.">🔊</button></li>
+<li>You <span class="must">must</span> stay in bed. <button class="say" data-s="You must stay in bed.">🔊</button></li>
+</ul>
+<p><span class="mustnt">⛔ MUSTN'T</span> = <b>no debes</b> (prohibición).</p>
+<ul>
+<li>You <span class="mustnt">mustn't</span> get out of bed. <button class="say" data-s="You mustn't get out of bed.">🔊</button></li>
+<li>You <span class="mustnt">mustn't</span> talk to many people. <button class="say" data-s="You mustn't talk to many people.">🔊</button></li>
+<li>You <span class="mustnt">mustn't</span> eat any food today. <button class="say" data-s="You mustn't eat any food today.">🔊</button></li>
+</ul>
+<div class="box">❌ No digas "must to take". ✔️ Di "must take".</div>
+</div>
+</details>
+
+<details>
+<summary>5️⃣ Study notes: remember it! 📝</summary>
+<div class="content">
+<table>
+<tr><th>Topic</th><th>Remember</th></tr>
+<tr><td>Parts of the body</td><td>foot ➜ feet · tooth ➜ teeth · skin is in the head <i>and</i> the body</td></tr>
+<tr><td>Symptoms</td><td>a cough · a headache · a rash · a runny nose · a sore throat · a temperature · earache · stomach ache · toothache</td></tr>
+<tr><td>I feel…</td><td>I feel sick. · My back hurts. · My knee hurts.</td></tr>
+<tr><td>Object pronouns</td><td>me · you · him · her · it · us · them (después de verbo o preposición)</td></tr>
+<tr><td>Can</td><td>Can I…? Yes, you can. / No, you can't.<br>Of course! · Sure, no problem! · No, sorry. · I'm afraid not.</td></tr>
+<tr><td>Must / Mustn't</td><td>must = obligación · mustn't = prohibición · + verbo sin "to"</td></tr>
+</table>
+<div class="box">🧠 Cuando termines la teoría, ¡practica en <b>Vocabulary</b>, <b>Grammar</b>, <b>More Practice</b> y <b>Games</b>!</div>
+</div>
+</details>
+</section>
+
+<!-- VOCAB -->
+<section id="vocab">
+<h2>🧍 Vocabulary: Body and Symptoms</h2>
+<p class="lead">Elige tu nivel: ★ fácil · ★★ medio · ★★★ desafío. Escribe y toca <b>Check</b>.</p>
+<div id="vocabLv"></div>
+</section>
+
+<!-- GRAMMAR -->
+<section id="gram">
+<h2>✏️ Grammar: Pronouns, Can and Must</h2>
+<p class="lead">Elige tu nivel: ★ fácil · ★★ medio · ★★★ desafío.</p>
+<div id="gramLv"></div>
+</section>
+
+<!-- READING -->
+<section id="read">
+<h2>🎧 Listening</h2>
+<div id="readArea"></div>
+</section>
+
+<!-- MORE PRACTICE -->
+<section id="more">
+<h2>➕ More Practice</h2>
+<p class="lead">¡Más ejercicios para estar 100% listo!</p>
+<div id="moreArea"></div>
+</section>
+
+<!-- GAMES -->
+<section id="games">
+<h2>🎮 Games</h2>
+<div class="tabs" id="gtabs">
+  <button class="on" data-g="pic">🖼️ Symptoms quiz</button>
+  <button data-g="bodyq">🧍 Body quiz</button>
+  <button data-g="mem">🃏 Memory Game</button>
+  <button data-g="pron">🎯 Pronoun Hunter</button>
+  <button data-g="mm">🚦 Must or Mustn't</button>
+  <button data-g="ws">🔍 Word Search</button>
+  <button data-g="hang">🔤 Hangman</button>
+  <button data-g="build">🧩 Sentence Builder</button>
+  <button data-g="bee">🐝 Spelling Bee</button>
+  <button data-g="can">🙋 Can I…?</button>
+  <button data-g="fix">🕵️ Spot the Mistake</button>
+</div>
+<div id="gamearea"></div>
+</section>
+
+</main>
+<div id="toast"></div>
+
+<script>
+/* ================= utilities ================= */
+const $=s=>document.querySelector(s);
+function el(h){const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstElementChild}
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const norm=s=>String(s).toLowerCase().replace(/[’'`.,!?\s]/g,"");
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+const PRAISE=["¡Muy bien! 🎉","¡Genial! 🌟","¡Excelente! 👏","¡Perfecto! 🏆","¡Fantástico! 🚀","¡Así se hace! 💪","¡Great job! 😄","¡Genial, estás listo para el examen! 🏆"];
+let score=0;
+function setLevel(){const l=score<50?"🌱 Beginner":score<120?"🌿 Learner":score<220?"🌟 Expert":"🏆 Champion";$("#level").textContent=l}
+function award(n){score+=n;$("#score").textContent=score;setLevel()}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.remove("show");void t.offsetWidth;t.classList.add("show")}
+function confetti(n=24){const em=["🎉","⭐","🌟","🎈","✨","💖"];for(let i=0;i<n;i++){const e=document.createElement("div");e.className="fall";e.textContent=em[i%em.length];e.style.left=Math.random()*100+"vw";e.style.animationDelay=Math.random()*.6+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),3200)}}
+function good(){toast(PRAISE[Math.floor(Math.random()*PRAISE.length)]);confetti(14)}
+function speak(t){if(!("speechSynthesis" in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.85;speechSynthesis.speak(u)}
+document.addEventListener("click",e=>{const b=e.target.closest(".say");if(b){e.preventDefault();speak(b.dataset.s)}});
+
+/* navigation */
+$("#nav").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+ document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x===b));
+ document.querySelectorAll("main>section").forEach(s=>s.classList.toggle("active",s.id===b.dataset.t));
+ window.scrollTo({top:0,behavior:"smooth"})});
+
+/* ================= data ================= */
+const bodyParts=[["head","cabeza","🗣️"],["eye","ojo","👁️"],["ear","oreja","👂"],["nose","nariz","👃"],["mouth","boca","👄"],["tooth / teeth","diente / dientes","🦷"],["skin","piel","🖐️"],["face","cara","🙂"],["arm","brazo","💪"],["back","espalda","🔙"],["stomach","estómago","🫃"],["hand","mano","✋"],["fingers","dedos","☝️"],["leg","pierna","🦵"],["knee","rodilla","🦿"],["foot / feet","pie / pies","🦶"]];
+$("#bodyChips").innerHTML=bodyParts.map(b=>`<span class="chip">${b[2]} ${b[0]}<button class="say" data-s="${b[0].split(" / ")[0]}">🔊</button><small>${b[1]}</small></span>`).join("");
+const symp=[["a cough","tos","😷"],["a headache","dolor de cabeza","🤕"],["a rash","erupción en la piel","🔴"],["a runny nose","moco / congestión","🤧"],["a sore throat","dolor de garganta","😫"],["a temperature","fiebre","🌡️"],["earache","dolor de oído","👂"],["stomach ache","dolor de estómago","🤢"],["toothache","dolor de muelas","🦷"],["I feel sick","me siento mal / con náuseas","🤮"],["My back hurts","me duele la espalda","🔙"],["My knee hurts","me duele la rodilla","🦿"],["flu","gripe","🤒"]];
+$("#sympChips").innerHTML=symp.map(b=>`<span class="chip">${b[2]} ${b[0]}<button class="say" data-s="${b[0]}">🔊</button><small>${b[1]}</small></span>`).join("");
+
+/* ================= exercise engine ================= */
+function mkHint(a,h){
+  if(a.length>24)return "✍️ Write the sentence";
+  if(h===""||h==="_")return a.replace(/\S/g,"_");
+  if(h!==undefined)return h;
+  return a.split(" ").map(w=>w[0]+"_".repeat(Math.max(w.length-1,0))).join(" ");
+}
+function tok(t,ex){
+  return t.replace(/\[\[(.+?)\]\]/g,(m,g)=>{
+    const p=g.split("|"),a=p[0],a0=a.split("/")[0];
+    if(ex)return `<span class="exans">${a0}</span>`;
+    const long=a0.length>24;
+    const w=long?"":"style=\"width:${Math.max(a0.length+2,6)}ch\"";
+    return `<input class="gap${long?" long":""}" ${w} data-ans="${esc(a)}" placeholder="${esc(mkHint(a0,p[1]))}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+  });
+}
+const head=(n,i)=>`<div class="exh"><span class="num">${n}</span><span>${i}</span></div>`;
+const actions=`<div class="actions"><button class="next chk">✔ Check</button><button class="ghost shw">👀 Show answers</button></div><div class="feedback"></div>`;
+const bankHtml=b=>b?`<div class="bank">${b.map(w=>`<span class="chip">${w}</span>`).join("")}</div>`:"";
+function secHead(t,c){return el(`<h3 class="sec ${c}">${t}</h3>`)}
+function plain(html){return el(`<div class="ex">${html}</div>`) }
+
+function wire(root){
+  const fb=root.querySelector(".feedback");
+  const gaps=()=>[...root.querySelectorAll(".gap")];
+  const right=g=>g.dataset.ans.split("/").map(norm).includes(norm(g.value));
+  root.querySelector(".chk").onclick=()=>{
+    const all=gaps();let ok=0;
+    all.forEach(g=>{const r=right(g);g.classList.remove("show");g.classList.toggle("ok",r);g.classList.toggle("bad",!r&&g.value.trim()!=="");
+      if(r){ok++;if(!g.dataset.paid){g.dataset.paid=1;award(5)}}});
+    if(ok===all.length){fb.textContent="🎉 "+ok+" / "+all.length+" — all correct!";good()}
+    else fb.textContent="✅ "+ok+" / "+all.length+". Fix the red ones and try again! 💪";
+  };
+  root.querySelector(".shw").onclick=()=>{gaps().forEach(g=>{if(!right(g)){g.value=g.dataset.ans.split("/")[0];g.classList.remove("bad");g.classList.add("show")}})};
+  root.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("gap"))root.querySelector(".chk").click()});
+}
+
+/* fill-in block: items are strings with [[answer|hint]] gaps, or {t,ex:true} examples */
+function fillBlock(n,instr,items,o={}){
+  const lis=items.map(it=>{const ex=typeof it==="object"&&it.ex;const t=typeof it==="string"?it:it.t;
+    return `<li>${tok(t,ex)}${ex?'<span class="tag">example</span>':""}</li>`}).join("");
+  const r=el(`<div class="ex">${head(n,instr)}${bankHtml(o.bank)}${o.pre||""}<ol class="items${o.cols?" cols":""}">${lis}</ol>${actions}</div>`);
+  wire(r);return r;
+}
+/* match block */
+function matchBlock(n,instr,endings,items){
+  const keys="abcdef".slice(0,endings.length).split("");
+  const end=`<div class="endings">${endings.map((t,i)=>`<p><b>${keys[i]}</b> ${t}</p>`).join("")}</div>`;
+  const lis=items.map(it=>`<li>${it.q} <select class="gap" data-ans="${it.a}"><option value="">?</option>${keys.map(k=>`<option value="${k}">${k}</option>`).join("")}</select></li>`).join("");
+  const r=el(`<div class="ex">${head(n,instr)}${end}<ol class="items">${lis}</ol>${actions}</div>`);
+  wire(r);return r;
+}
+/* true/false block */
+function tfBlock(n,instr,items){
+  const lis=items.map(it=>it.ex?`<li>${it.q} <span class="exans">${it.a}</span><span class="tag">example</span></li>`:`<li>${it.q} <select class="gap" data-ans="${it.a}"><option value="">?</option><option value="T">T ✔</option><option value="F">F ✘</option></select></li>`).join("");
+  const r=el(`<div class="ex">${head(n,instr)}<ol class="items">${lis}</ol>${actions}</div>`);
+  wire(r);return r;
+}
+/* inline choice block (a = right answer, or null for "pick for you") */
+function inlineBlock(n,instr,items,o={}){
+  const r=el(`<div class="ex">${head(n,instr)}<ol class="items"></ol><div class="feedback"></div></div>`);
+  const ol=r.querySelector("ol"),fb=r.querySelector(".feedback");let done=0;
+  items.forEach(it=>{
+    const li=el(`<li>${it.pre} <span class="choice"></span> ${it.post||""}</li>`);
+    const span=li.querySelector(".choice");let tries=0;
+    it.opts.forEach(op=>{
+      const b=el(`<button class="opt2">${op}</button>`);
+      b.onclick=()=>{
+        if(o.pick){span.querySelectorAll("button").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");return}
+        if(op===it.a){b.classList.add("ok");span.querySelectorAll("button").forEach(x=>x.disabled=true);if(!tries)award(5);done++;
+          fb.textContent="✅ "+done+" / "+items.length;if(done===items.length){fb.textContent="🎉 All correct!";good()}}
+        else{tries++;b.classList.add("bad");b.disabled=true}
+      };span.appendChild(b)});
+    ol.appendChild(li);
+  });
+  return r;
+}
+/* free writing block ("Put it together"): ___ = free input; area = textarea */
+function freeBlock(n,instr,items,o={}){
+  const lis=items.map(t=>o.area?`<li>${t}<textarea class="free" placeholder="✍️ ..."></textarea></li>`:`<li>${t.replace(/___/g,'<input class="free" placeholder="✍️ ...">')}</li>`).join("");
+  const r=el(`<div class="ex">${head(n,instr)}<ol class="items">${lis}</ol><div class="actions"><button class="next fin">✔ Done</button></div><div class="feedback"></div></div>`);
+  let paid=false;
+  r.querySelector(".fin").onclick=()=>{
+    const filled=[...r.querySelectorAll(".free")].some(i=>i.value.trim());
+    if(!filled){r.querySelector(".feedback").textContent="✍️ Write something first!";return}
+    if(!paid){paid=true;award(10)}
+    r.querySelector(".feedback").textContent="👏 Great! Read your answers again out loud.";good();
+  };
+  return r;
+}
+/* tick block */
+function tickBlock(n,instr,items){
+  const r=el(`<div class="ex">${head(n,instr)}<div class="tl"></div><div class="actions"><button class="next fin">✔ Done</button></div><div class="feedback"></div></div>`);
+  items.forEach(t=>r.querySelector(".tl").appendChild(el(`<label class="tick"><input type="checkbox"><span>${t}</span></label>`)));
+  let paid=false;
+  r.querySelector(".fin").onclick=()=>{if(!paid){paid=true;award(10)}r.querySelector(".feedback").textContent="👏 Great! Now say your true sentences out loud.";good()};
+  return r;
+}
+/* classify block: tap a word, then tap the right column */
+function classifyBlock(n,instr,words,cols){
+  const r=el(`<div class="ex">${head(n,instr)}<div class="bank bk"></div><div class="cols3"></div><div class="feedback"></div><div class="actions"><button class="ghost rst" style="margin-left:0">🔄 Restart</button></div></div>`);
+  const bank=r.querySelector(".bk"),grid=r.querySelector(".cols3"),fb=r.querySelector(".feedback");let sel=null;
+  function build(){
+    bank.innerHTML="";grid.innerHTML="";sel=null;fb.textContent="👆 Tap a word, then tap its column.";
+    cols.forEach((c,i)=>{const box=el(`<div class="colbox"><div class="colh">${c}</div><div class="drop"></div></div>`);
+      box.onclick=()=>{
+        if(!sel){fb.textContent="👆 Tap a word first!";return}
+        if(sel.dataset.c==i){sel.classList.remove("sel");sel.classList.add("placed");sel.disabled=true;box.querySelector(".drop").appendChild(sel);sel=null;award(5);
+          const left=bank.querySelectorAll("button").length;fb.textContent=left?"✅ Yes!":"";if(!left){fb.textContent="🎉 All sorted!";good()}}
+        else{sel.classList.add("shake");const s=sel;setTimeout(()=>s.classList.remove("shake"),400);fb.textContent="❌ Not there. Try another column!"}
+      };grid.appendChild(box)});
+    shuffle(words.map((w,i)=>w)).forEach(w=>{const b=el(`<button class="chip">${w.w}</button>`);b.dataset.c=w.c;
+      b.onclick=e=>{e.stopPropagation();if(b.disabled)return;if(sel)sel.classList.remove("sel");sel=b;b.classList.add("sel");speak(w.w)};bank.appendChild(b)});
+  }
+  r.querySelector(".rst").onclick=build;build();return r;
+}
+function mountLevels(box,builders){
+  box.innerHTML='<div class="lvltabs"></div><div class="lvlbody"></div>';
+  const tabs=box.querySelector(".lvltabs"),body=box.querySelector(".lvlbody");
+  ["★","★★","★★★"].forEach((s,i)=>{
+    const b=el(`<button>${s}</button>`);
+    b.onclick=()=>{tabs.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));body.innerHTML="";builders[i]().forEach(n=>body.appendChild(n))};
+    tabs.appendChild(b);
+  });
+  tabs.firstChild.click();
+}
+
+/* ================= VOCABULARY ================= */
+const COLS=["Head 🙂","Body 🧍","Head and body 🧑"];
+const WORDS1=[["face",0],["ears",0],["eyes",0],["mouth",0],["nose",0],["tooth",0],["arm",1],["back",1],["fingers",1],["foot",1],["hand",1],["knee",1],["leg",1],["stomach",1],["skin",2]].map(x=>({w:x[0],c:x[1]}));
+const WORDS2=[["face",0],["ear",0],["eye",0],["mouth",0],["nose",0],["tooth",0],["arm",1],["back",1],["finger",1],["foot",1],["hand",1],["knee",1],["leg",1],["stomach",1],["skin",2]].map(x=>({w:x[0],c:x[1]}));
+mountLevels($("#vocabLv"),[
+ ()=>[
+  secHead("Parts of the body","c1"),
+  classifyBlock(1,"Put the words in the correct column.",WORDS1,COLS),
+  secHead("Symptoms","c2"),
+  fillBlock(2,"Complete the sentences with symptom words.",[
+   "Tom has got a [[cough]] and a [[runny]] nose.",
+   "I can't eat. I feel [[sick]] and I've got [[stomach ache]].",
+   "Ana has got a red [[rash]] on her arm.",
+   "You've got a high [[temperature]]. Stay in bed!",
+   "My grandma's [[back]] [[hurts]].",
+   "Luca has got [[toothache]]. He can't eat sweets.",
+   "I've got a [[headache]]. I need a rest.",
+   "Lola can't hear well. She's got [[earache]].",
+   "My throat really hurts. I've got a [[sore]] throat.",
+   "Mia's [[knee]] [[hurts]] after football."
+  ],{bank:["rash","sore","stomach ache","temperature","sick","earache","hurts","headache","back","knee","toothache","cough","runny"]}),
+  secHead("Put it together","c3"),
+  tickBlock(3,"Tick (✓) the sentences that are true for you.",[
+   "I write with my right hand.","I take medicine when I've got a headache.","I kick a ball with my left foot.","I've got brown eyes.","I'm hardly ever ill.","I've got short fingers.","I wash my hands before lunch.","I brush my teeth every day."])
+ ],
+ ()=>[
+  secHead("Parts of the body","c1"),
+  fillBlock(1,"Complete the words for parts of the body.",[
+   "👂 [[ear|e_r]]","🦶 [[foot|f__t]]","🙂 [[face|f_ce]]","👄 [[mouth|m__th]]","🫃 [[stomach|st_m_ch]]","🦿 [[knee|kn__]]","🦵 [[leg|l_g]]","✋ [[hand|h_nd]]",
+   "🦷 [[tooth|t__th]]","👃 [[nose|n_se]]","👁️ [[eye|e_e]]","🖐️ [[skin|s_in]]","🔙 [[back|b_ck]]","💪 [[arm|a_m]]","☝️ [[finger|f_ng_r]]"
+  ],{cols:true}),
+  classifyBlock(2,"Now put the words in the correct column.",WORDS2,COLS),
+  secHead("Symptoms","c2"),
+  fillBlock(3,"Complete the sentences with symptom words.",[
+   "Joe feels [[sick]] and he has got [[stomach ache]].",
+   "She has got a [[temperature]]. I think she's got [[flu]].",
+   "I can't hear because I've got [[earache]]. I can't eat because I've got [[toothache]].",
+   "Dad is taking two tablets. He's got a [[headache]].",
+   "Emma has got a bad [[cough]] and a [[runny]] nose.",
+   "My brother's [[knee]] [[hurts]]. He fell off his bike.",
+   "Grandpa's [[back]] [[hurts]].",
+   "Sam has got a red [[rash]] and a [[sore]] throat."
+  ]),
+  secHead("Put it together","c3"),
+  freeBlock(4,"Complete the sentences for you.",[
+   "I eat with my ___ hand.","When I've got a cough, I ___ .","I kick a ball with my ___ foot.","My hair is ___ and my eyes are ___ .","I stay in bed when I've got ___ .","I brush my teeth ___ ."])
+ ],
+ ()=>[
+  secHead("Parts of the body","c1"),
+  fillBlock(1,"Reorder the letters to make words for parts of the body.",[
+   {t:"<b>era</b> → [[ear|]]",ex:true},"<b>yee</b> → [[eye|]]","<b>neek</b> → [[knee|]]","<b>mar</b> → [[arm|]]","<b>thuom</b> → [[mouth|]]","<b>nisk</b> → [[skin|]]","<b>moahcts</b> → [[stomach|]]","<b>nahd</b> → [[hand|]]",
+   "<b>thoto</b> → [[tooth|]]","<b>snoe</b> → [[nose|]]","<b>elg</b> → [[leg|]]","<b>caef</b> → [[face|]]","<b>ginfer</b> → [[finger|]]","<b>acbk</b> → [[back|]]","<b>tofo</b> → [[foot|]]"
+  ],{cols:true}),
+  classifyBlock(2,"Now put the words in the correct column.",WORDS2,COLS),
+  secHead("Symptoms","c2"),
+  fillBlock(3,"Complete the text with the correct symptom words.",[
+   "Martín has got flu. His [[temperature]] is 38 degrees and he's got a bad [[cough]]. He's taking tablets because he's got a [[headache]] and a sore [[throat]]. His nose is [[runny]], but he hasn't got a [[rash]], so that's good.",
+   "Julia is ill, too. She feels [[sick]] and she's got [[stomach ache]], so she can't eat. Her back [[hurts]], and she can't hear well because she's got [[earache]]. Now she's got [[toothache]], too!"
+  ]),
+  secHead("Put it together","c3"),
+  freeBlock(4,"Answer the questions for you.",[
+   "Which foot do you kick a ball with?","What do you do when you've got a cough?","What do you do when you've got a high temperature?","What do you do when you've got stomach ache?","What do you do when you've got earache?"],{area:true})
+ ]
+]);
+
+/* ================= GRAMMAR ================= */
+mountLevels($("#gramLv"),[
+ ()=>[
+  secHead("Object pronouns","c1"),
+  inlineBlock(1,"Choose the correct words.",[
+   {pre:"Mum is calling Pedro. She wants to talk to",opts:["him","her"],a:"him",post:"."},
+   {pre:"Where are my shoes? I can't find",opts:["it","them"],a:"them",post:"."},
+   {pre:"Sara is my best friend. I sit next to",opts:["her","him"],a:"her",post:"in class."},
+   {pre:"Mr Gómez is our teacher. He helps",opts:["us","them"],a:"us",post:"with our homework."},
+   {pre:"You look tired. Let me help",opts:["you","it"],a:"you",post:"."},
+   {pre:"I love this song. I listen to",opts:["it","them"],a:"it",post:"every day."},
+   {pre:"My friends are at the park. I'm going to meet",opts:["them","us"],a:"them",post:"there."},
+   {pre:"Dad is calling",opts:["me","him"],a:"me",post:". I must answer!"}
+  ]),
+  secHead("Can for permission","c2"),
+  fillBlock(2,"Complete the short answers.",[
+   "Can I play outside? <br>No, you [[can't]].",
+   "Can we watch TV after dinner? <br>Yes, you [[can]].",
+   "Can Sofía come to my party? <br>Yes, she [[can]].",
+   "Can Leo use your pen? <br>No, he [[can't]].",
+   "Can Ana and Paula go to the park? <br>No, they [[can't]].",
+   "Can I have an apple? <br>Yes, you [[can]]."
+  ],{cols:true}),
+  secHead("Can and must","c3"),
+  matchBlock(3,"Match the sentence halves 1–6 to a–f.",[
+   "because it's very cold.","because I've got an exam tomorrow.","because it's her birthday.","because he's got a high temperature.","because there are no more in the box.","because it's the holidays."],[
+   {q:"You can't have a biscuit",a:"e"},{q:"We mustn't go out today",a:"a"},{q:"Mia can have a big party",a:"c"},{q:"Leo must stay in bed",a:"d"},{q:"You can sleep late tomorrow",a:"f"},{q:"I must study tonight",a:"b"}]),
+  secHead("Put it together","c4"),
+  tickBlock(4,"Tick (✓) the sentences that are true for you.",[
+   "I can listen to music in my bedroom.","I can't stay in bed all morning.","I must wash my hands before dinner.","I can stay up late on school days.","I mustn't use my phone in class.","I can read books in bed.","I mustn't go to bed late on Sunday.","I must help my family at home."])
+ ],
+ ()=>[
+  secHead("Object pronouns","c1"),
+  fillBlock(1,"Complete the sentences with the words below.",[
+   "Look at Lucas! Mum is giving [[him]] a present.",
+   "Grandma has got new glasses. She wears [[them]] every day.",
+   "Hello! Can you hear [[me]]?",
+   "Our English teacher is great. She teaches [[us]] new words every day.",
+   "You look sad. Let me help [[you]].",
+   "This is my new bike. I ride [[it]] to school.",
+   "Mia is my sister. I play with [[her]] every day."
+  ],{bank:["her","him","it","me","them","us","you"]}),
+  secHead("Can for permission","c2"),
+  fillBlock(2,"Complete the questions and short answers.",[
+   "[[Can]] I go to the park? <br>No, you [[can't]].",
+   "[[Can]] we eat in the garden? <br>Yes, you [[can]].",
+   "[[Can]] Nora stay for lunch? <br>Yes, she [[can]].",
+   "[[Can]] Tomás use your bike? <br>No, he [[can't]].",
+   "[[Can]] Eli and Ceci watch the film? <br>No, they [[can't]].",
+   "[[Can]] I have some water? <br>Yes, you [[can]]."
+  ],{cols:true}),
+  secHead("Can and must","c3"),
+  fillBlock(3,"Complete the sentences with the affirmative or negative form of the verbs in brackets.",[
+   {t:"You [[mustn't touch]] (must / touch) the hot oven!",ex:true},
+   "It's Sunday. I [[can go]] (can / go) to bed late tonight.",
+   "We [[mustn't run]] (must / run) in the school corridor.",
+   "You [[can't have]] (can / have) more sweets today.",
+   "Pablo [[must do]] (must / do) his homework now.",
+   "They [[mustn't be]] (must / be) late for the bus.",
+   "You [[must wash]] (must / wash) your hands before lunch."
+  ]),
+  secHead("Put it together","c4"),
+  inlineBlock(4,"Choose the correct form for you.",[
+   "I ___ listen to music in my bedroom.","I ___ stay in bed all morning.","I ___ use suncream when I sit in the hot sun.","I ___ meet my friends after school.","I ___ use my phone in class.","I ___ read books in bed.","I ___ take medicine when I'm ill.","I ___ be late for school."
+  ].map(t=>({pre:t.split("___")[0],post:t.split("___")[1],opts:["can","can't","must","mustn't"],a:null})),{pick:true})
+ ],
+ ()=>[
+  secHead("Object pronouns","c1"),
+  fillBlock(1,"Complete the sentences with the correct object pronouns.",[
+   {t:"Mum is helping Ben. She's helping [[him]].",ex:true},
+   "I can't find my keys. Can you help [[me]] look for [[them]]?",
+   "The teacher gives [[us]] a test every Friday.",
+   "Zoe is my cousin. I live next to [[her]].",
+   "Look at this puppy! I love [[it]].",
+   "Are you OK? Let me help [[you]].",
+   "My brothers are noisy. I can't hear [[them]]."
+  ]),
+  secHead("Can for permission","c2"),
+  fillBlock(2,"Complete the conversation with can or can't.",[
+   {t:"<b>Ben:</b> Mum, [[Can]] I go to the cinema with Max?",ex:true},
+   "<b>Mum:</b> No, you [[can't]]. You've got a cough. You [[can]] go next week.",
+   "<b>Ben:</b> OK. [[Can]] I watch a film at home?",
+   "<b>Mum:</b> Yes, you [[can]]. You [[can]] watch one film, and then it's time for bed.",
+   "<b>Ben:</b> [[Can]] I have a hot chocolate first?",
+   "<b>Mum:</b> Yes, of course you [[can]]. But you [[can't]] stay up late."
+  ]),
+  secHead("Must","c3"),
+  fillBlock(3,"Write affirmative (✓) and negative (✗) sentences with must and the verbs below.",[
+   {t:"you / your hands (✓) → [[You must wash your hands.]]",ex:true},
+   "you / to the teacher (✓)<br>[[You must listen to the teacher.]]",
+   "we / in the corridor (✗)<br>[[We mustn't run in the corridor.]]",
+   "I / my room (✓)<br>[[I must clean my room.]]",
+   "Leo / late for school (✗)<br>[[Leo mustn't be late for school.]]",
+   "you / sweets all day (✗)<br>[[You mustn't eat sweets all day.]]"
+  ],{bank:["clean","wash","run","eat","be","listen to"]}),
+  secHead("Put it together","c4"),
+  freeBlock(4,"Complete the sentences for you.",[
+   "I can't ___ at home.","I mustn't ___ on school days.","I must ___ every morning.","I can ___ in my room at home.","I mustn't ___ at school.","I can ___ with my friends.","I can't ___ when I've got flu.","I can ___ at the weekend."])
+ ]
+]);
+
+/* ================= MORE PRACTICE ================= */
+(function(){
+  const box=$("#moreArea");
+  const add=(...n)=>n.forEach(x=>box.appendChild(x));
+  add(secHead("Parts of the body","c1"),
+   fillBlock(1,"Look at the pictures. Write the parts of the body.",[
+    "👂 [[ear|]]","👁️ [[eye|]]","👃 [[nose|]]","👄 [[mouth|]]","🦷 [[tooth|]]","🙂 [[face|]]","💪 [[arm|]]","✋ [[hand|]]","☝️ [[finger|]]","🦵 [[leg|]]","🦿 [[knee|]]","🦶 [[foot|]]","🫃 [[stomach|]]"
+   ],{cols:true}),
+   fillBlock(2,"Write the plural.",[
+    "one foot ➜ two [[feet|]]","one tooth ➜ two [[teeth|]]","one eye ➜ two [[eyes|]]","one hand ➜ two [[hands|]]","one finger ➜ ten [[fingers|]]","one knee ➜ two [[knees|]]"
+   ],{cols:true}),
+   secHead("Symptoms","c2"),
+   inlineBlock(3,"Choose the correct words. (¡Cuidado con la “a”!)",[
+    {pre:"I've got",opts:["a cough","cough"],a:"a cough",post:"."},
+    {pre:"She's got",opts:["earache","an earache"],a:"earache",post:"."},
+    {pre:"He's got",opts:["a headache","headache"],a:"a headache",post:"."},
+    {pre:"I've got",opts:["stomach ache","a stomach ache"],a:"stomach ache",post:"."},
+    {pre:"You've got",opts:["a sore throat","sore throat"],a:"a sore throat",post:"."},
+    {pre:"Lola has got",opts:["toothache","a toothache"],a:"toothache",post:"."},
+    {pre:"You've got",opts:["a temperature","temperature"],a:"a temperature",post:"."},
+    {pre:"Max has got",opts:["a runny nose","runny nose"],a:"a runny nose",post:"."},
+    {pre:"I've got",opts:["a rash","rash"],a:"a rash",post:"on my arm."}
+   ]),
+   fillBlock(4,"Listen 🔊 and write the symptom.",[
+    "<button class=\"say\" data-s=\"cough\">🔊</button> [[cough|]]","<button class=\"say\" data-s=\"headache\">🔊</button> [[headache|]]","<button class=\"say\" data-s=\"rash\">🔊</button> [[rash|]]","<button class=\"say\" data-s=\"temperature\">🔊</button> [[temperature|]]",
+    "<button class=\"say\" data-s=\"earache\">🔊</button> [[earache|]]","<button class=\"say\" data-s=\"toothache\">🔊</button> [[toothache|]]","<button class=\"say\" data-s=\"stomach ache\">🔊</button> [[stomach ache|]]","<button class=\"say\" data-s=\"runny nose\">🔊</button> [[runny nose|]]"
+   ],{cols:true}),
+   matchBlock(5,"What's the best advice? Match 1–6 to a–f.",[
+    "You must stay in bed.","You must take a tablet.","You mustn't eat any food today.","You mustn't talk to many people.","You mustn't eat sweets.","You must drink warm water."],[
+    {q:"I've got a high temperature.",a:"a"},{q:"I've got a headache.",a:"b"},{q:"I feel sick.",a:"c"},{q:"I've got a cough.",a:"d"},{q:"I've got toothache.",a:"e"},{q:"I've got a sore throat.",a:"f"}]),
+   secHead("Object pronouns","c3"),
+   fillBlock(6,"Rewrite the sentences with an object pronoun.",[
+    "I like Anna. ➜ I like [[her|]].","I help my dad. ➜ I help [[him|]].","We love our dog. ➜ We love [[it|]].","Tom sees Ana and Leo. ➜ Tom sees [[them|]].","Mum calls Pablo and me. ➜ Mum calls [[us|]].","Can you hear Lucas? ➜ Can you hear [[him|]]?","The teacher helps Sofía and Mía. ➜ The teacher helps [[them|]]."
+   ]),
+   secHead("Can and Must","c4"),
+   inlineBlock(7,"Choose the best answer.",[
+    {pre:"“Can I have a biscuit?” You want to say YES ✅",opts:["Of course!","I'm afraid not."],a:"Of course!"},
+    {pre:"“Can I play outside?” It's raining. You say NO ❌",opts:["Sure, no problem!","I'm afraid not."],a:"I'm afraid not."},
+    {pre:"“Can I use your pen?” You say YES ✅",opts:["Sure, no problem!","No, sorry."],a:"Sure, no problem!"},
+    {pre:"“Can I watch TV?” It's bedtime. You say NO ❌",opts:["Of course!","No, sorry."],a:"No, sorry."}
+   ]),
+   fillBlock(8,"Write must or mustn't.",[
+    "You [[must]] wash your hands before lunch.","You [[mustn't]] run in the corridor.","You [[must]] listen to the teacher.","You [[mustn't]] shout in class.","You [[must]] stay in bed when you're ill.","You [[mustn't]] eat sweets before bed.","You [[must]] brush your teeth.","You [[mustn't]] touch a hot oven."
+   ],{cols:true}));
+})();
+
+/* ================= LISTENING ================= */
+function speakLines(lines){
+  if(!("speechSynthesis" in window))return;speechSynthesis.cancel();
+  lines.forEach(l=>{const u=new SpeechSynthesisUtterance(l[1]);u.lang="en-US";u.rate=.8;u.pitch=l[0]==="M"?0.8:1.25;speechSynthesis.speak(u)});
+}
+(function(){
+  const box=$("#readArea");
+  const say=(t,label)=>`<button class="say" style="width:auto;border-radius:16px;padding:0 14px;height:34px" data-s="${esc(t)}">🔊 ${label||""}</button>`;
+  box.appendChild(el(`<div class="box">🎧 Toca el botón 🔊 y escucha. Puedes escuchar tantas veces como quieras. Si el audio no suena, prueba con el sonido de tu dispositivo o con otro navegador.</div>`));
+
+  /* Ex 1: short monologues */
+  const mono=[
+   ["Hi! My name is Tom. I've got a cough and a runny nose.",["a cough and a runny nose","a rash and a sore throat"],0,"Tom"],
+   ["I'm Lucía. I can't eat my dinner. I feel sick and I've got stomach ache.",["earache and toothache","sick and stomach ache"],1,"Lucía"],
+   ["I'm Grandpa. My back hurts, so I must stay in bed today.",["his back hurts","his knee hurts"],0,"Grandpa"],
+   ["My name is Mía. I've got toothache. I mustn't eat sweets!",["toothache","a headache"],0,"Mía"]
+  ];
+  box.appendChild(secHead("Symptoms","c2"));
+  box.appendChild(inlineBlock(1,"Listen. What's the matter? Choose the correct answer.",mono.map((m,i)=>({
+    pre:say(m[0],"Speaker "+(i+1)+" ("+m[3]+")"),opts:m[1],a:m[1][m[2]],post:""}))));
+  const tr1=el(`<details class="ex" style="border:none"><summary style="background:#fff">📄 Show the audio script</summary><div class="content">${mono.map((m,i)=>`<p><b>${i+1}.</b> ${m[0]}</p>`).join("")}</div></details>`);
+  box.appendChild(tr1);
+
+  /* Ex 2: dialogue Ben & Mum */
+  const dlg=[["F","Mum, can I go out to play?"],["M","No, you can't. You've got a high temperature. You must stay in bed."],["F","Can I watch TV in bed?"],["M","Yes, of course you can. But you mustn't eat sweets."],["F","OK, Mum. Thank you!"]];
+  box.appendChild(secHead("Can and must","c4"));
+  const dBlock=tfBlock(2,"Listen to Ben and his mum. Are the sentences T (true) or F (false)?",[
+   {q:"Ben can go out to play.",a:"F"},{q:"Ben has got a high temperature.",a:"T"},{q:"Ben must stay in bed.",a:"T"},{q:"Ben can watch TV.",a:"T"},{q:"Ben can eat sweets.",a:"F"}]);
+  const dBtn=el(`<p><button class="next" style="padding:6px 18px">🔊 Play the conversation</button></p>`);
+  dBtn.querySelector("button").onclick=()=>speakLines(dlg);
+  dBlock.querySelector(".exh").after(dBtn);
+  box.appendChild(dBlock);
+  box.appendChild(el(`<details class="ex" style="border:none"><summary style="background:#fff">📄 Show the audio script</summary><div class="content">${dlg.map(l=>`<p><b>${l[0]==="F"?"Ben":"Mum"}:</b> ${l[1]}</p>`).join("")}</div></details>`));
+
+  /* Ex 3: listen and complete */
+  const comp=[
+   ["Sofía has got a headache and a sore throat.","Sofía has got a [[headache]] and a [[sore]] throat."],
+   ["She must take a tablet and she mustn't talk to many people.","She must [[take]] a tablet and she mustn't [[talk]] to many people."],
+   ["Leo's knee hurts. He can't play football today.","Leo's [[knee]] hurts. He [[can't]] play football today."],
+   ["My sister has got earache. I can't hear her well.","My sister has got [[earache]]. I can't [[hear]] her well."]
+  ];
+  box.appendChild(fillBlock(3,"Listen and complete the sentences.",comp.map(c=>say(c[0],"")+" "+c[1])));
+
+  /* Ex 4: pronouns */
+  box.appendChild(secHead("Object pronouns","c3"));
+  const pp=[["Look at her.","Look at",["him","her"],"her"],["Talk to them.","Talk to",["us","them"],"them"],["Please help me.","Please help",["me","you"],"me"],["I like it a lot.","I like",["it","him"],"it"],["She helps us.","She helps",["us","them"],"us"],["Can you hear him?","Can you hear",["him","her"],"him"]];
+  box.appendChild(inlineBlock(4,"Listen and choose the correct pronoun.",pp.map(x=>({pre:say(x[0],"")+" "+x[1],opts:x[2],a:x[3],post:"."}))));
+
+  /* Ex 5: spelling */
+  box.appendChild(secHead("Put it together","c4"));
+  box.appendChild(fillBlock(5,"Listen and write the words.",[
+   say("stomach ache","")+" [[stomach ache|]]",say("throat","")+" [[throat|]]",say("temperature","")+" [[temperature|]]",say("teeth","")+" [[teeth|]]",say("runny nose","")+" [[runny nose|]]",say("feet","")+" [[feet|]]"
+  ],{cols:true}));
+})();
+
+/* ================= GAMES ================= */
+function runQuiz(root,items,opts={}){
+  items=shuffle(items);let i=0,hits=0;
+  function show(){
+    if(i>=items.length)return end();
+    const it=items[i];
+    root.innerHTML=`<div class="bar"><div style="width:${i/items.length*100}%"></div></div>
+    <div class="card"><div class="q">${it.q}</div><div class="opts" id="o"></div><div class="feedback" id="f"></div><div id="n"></div></div>`;
+    const o=root.querySelector("#o");
+    (opts.fixed?it.options:shuffle(it.options)).forEach(t=>{
+      const b=document.createElement("button");b.className="opt"+(opts.cls?" "+opts.cls(t):"");b.textContent=t;
+      b.onclick=()=>answer(b,t,it);o.appendChild(b)});
+  }
+  function answer(btn,t,it){
+    root.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.textContent===it.a)b.classList.add("ok")});
+    const f=root.querySelector("#f");
+    if(t===it.a){hits++;award(10);good();f.innerHTML="✅ "+(it.tip||"¡Correcto!")}
+    else{btn.classList.add("bad");f.innerHTML="❌ La respuesta es <b>"+it.a+"</b>. "+(it.tip||"")}
+    if(it.say)speak(it.say);
+    root.querySelector("#n").innerHTML='<button class="next">Siguiente ➜</button>';
+    root.querySelector(".next").onclick=()=>{i++;show()};
+  }
+  function end(){
+    const p=hits/items.length;
+    const msg=p===1?"¡Perfecto! ¡Genial, estás listo para el examen! 🏆":p>=.7?"¡Muy bien! Casi listo para el examen 🌟":"¡Sigue practicando, tú puedes! 💪";
+    if(p>=.7)confetti(40);
+    root.innerHTML=`<div class="card result"><div class="big">${p===1?"🏆":p>=.7?"🌟":"💪"}</div><h3>${hits} de ${items.length} correctas</h3><p>${msg}</p><button class="next" id="again">🔄 Jugar otra vez</button></div>`;
+    root.querySelector("#again").onclick=()=>runQuiz(root,items,opts);
+  }
+  show();
+}
+function transQuiz(list,prompt){
+  return list.map(x=>({q:`<div class="bigemo">${x[2]}</div><div style="text-align:center">${prompt}<br><b>${x[1]}</b></div>`,a:x[0],
+   options:shuffle(list.filter(y=>y!==x)).slice(0,3).map(y=>y[0]).concat(x[0]),tip:"",say:x[0]}));
+}
+const bodyList=[["head","cabeza","🗣️"],["eye","ojo","👁️"],["ear","oreja","👂"],["nose","nariz","👃"],["mouth","boca","👄"],["tooth","diente","🦷"],["face","cara","🙂"],["arm","brazo","💪"],["stomach","estómago","🫃"],["hand","mano","✋"],["leg","pierna","🦵"],["knee","rodilla","🦿"],["foot","pie","🦶"]];
+const pr=["me","you","him","her","it","us","them"];
+const prItems=[
+ ["My brother is sick. Look at <b>___</b>.","him","Brother = chico ➜ him"],
+ ["I like Anna. I talk to <b>___</b> every day.","her","Anna = chica ➜ her"],
+ ["Where is the dog? I can't see <b>___</b>.","it","Animal o cosa ➜ it"],
+ ["Mum, can you help <b>___</b>? (yo)","me","I ➜ me"],
+ ["We love our teacher. She helps <b>___</b>.","us","we ➜ us"],
+ ["The kids are happy. I play with <b>___</b>.","them","kids = varios ➜ them"],
+ ["That's Tom. Can you hear <b>___</b>?","him","Tom = chico ➜ him"],
+ ["Miss Ana is our teacher. We listen to <b>___</b>.","her","Miss Ana = chica ➜ her"],
+ ["I've got a headache. Please give <b>___</b> a glass of water. (yo)","me","I ➜ me"],
+ ["My parents are at home. I call <b>___</b> after school.","them","parents = varios ➜ them"],
+ ["You and I are friends. Our teacher likes <b>___</b>.","us","you and I = we ➜ us"],
+ ["I love this book. I read <b>___</b> every night.","it","book = cosa ➜ it"]
+].map(x=>({q:"🔎 "+x[0].replace("___",'<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>'),a:x[1],options:pr,tip:x[2]}));
+const mm=[
+ ["🌡️ You've got a temperature. You ___ stay in bed.","must"],
+ ["🤢 You've got stomach ache. You ___ eat any food today.","mustn't"],
+ ["😷 You've got a cough. You ___ talk to many people.","mustn't"],
+ ["💊 You ___ take the medicine.","must"],
+ ["🛏️ You're sick. You ___ get out of bed.","mustn't"],
+ ["🦷 You've got toothache. You ___ eat lots of sweets.","mustn't"],
+ ["🥤 You've got a sore throat. You ___ drink water.","must"],
+ ["🧼 You ___ wash your hands before eating.","must"],
+ ["🏫 At school you ___ shout in class.","mustn't"],
+ ["🏫 At school you ___ listen to the teacher.","must"]
+].map(x=>({q:x[0].replace("___",'<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>'),a:x[1],options:["must","mustn't"],tip:x[1]==="must"?"Es obligatorio: must ✅":"Está prohibido: mustn't ⛔"}));
+
+function memoryGame(root){
+  root.innerHTML=`<p>Encuentra las parejas: el síntoma en inglés 🇬🇧 con su significado en español 🇦🇷.</p><div id="g4info" class="feedback"></div><div class="grid" id="g4grid"></div><p><button class="next" id="g4new">🔄 New game</button></p>`;
+  let first=null,lock=false,pairs=0,tries=0;
+  const set=shuffle(symp).slice(0,8);
+  const cards=shuffle(set.flatMap((s,i)=>[{id:i,t:s[2]+" "+s[0],en:s[0]},{id:i,t:s[1]}]));
+  const info=root.querySelector("#g4info");info.textContent="Tries: 0 · Pairs: 0 / 8";
+  const g=root.querySelector("#g4grid");
+  cards.forEach(c=>{const b=document.createElement("button");b.className="mem";b.textContent="❓";
+    b.onclick=()=>{
+      if(lock||b.classList.contains("open"))return;
+      b.classList.add("open");b.textContent=c.t;if(c.en)speak(c.en);
+      if(!first){first={b,c};return}
+      tries++;
+      if(first.c.id===c.id){first.b.classList.replace("open","done");b.classList.replace("open","done");pairs++;award(10);first=null;
+        if(pairs===8){good()}else toast("✅")}
+      else{lock=true;const f=first.b;first=null;setTimeout(()=>{f.classList.remove("open");f.textContent="❓";b.classList.remove("open");b.textContent="❓";lock=false},900)}
+      info.textContent=`Tries: ${tries} · Pairs: ${pairs} / 8`;
+    };g.appendChild(b)});
+  root.querySelector("#g4new").onclick=()=>memoryGame(root);
+}
+/* ---- Word search ---- */
+function wordSearch(root){
+  const N=11,words=["EAR","EYE","NOSE","MOUTH","KNEE","LEG","HAND","FOOT","BACK","SKIN","COUGH","RASH","FACE","ARM"];
+  const dirs=[[0,1],[1,0],[1,1]],L="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let grid;
+  function make(){
+    for(;;){
+      grid=Array.from({length:N},()=>Array(N).fill(""));let all=true;
+      for(const w of shuffle(words).sort((a,b)=>b.length-a.length)){
+        let placed=false;
+        for(let t=0;t<300&&!placed;t++){
+          const d=dirs[Math.floor(Math.random()*3)],r=Math.floor(Math.random()*N),c=Math.floor(Math.random()*N);
+          if(r+d[0]*(w.length-1)>=N||c+d[1]*(w.length-1)>=N)continue;
+          let ok=true;for(let i=0;i<w.length;i++){const ch=grid[r+d[0]*i][c+d[1]*i];if(ch&&ch!==w[i]){ok=false;break}}
+          if(!ok)continue;for(let i=0;i<w.length;i++)grid[r+d[0]*i][c+d[1]*i]=w[i];placed=true;
+        }
+        if(!placed){all=false;break}
+      }
+      if(all)break;
+    }
+    grid.forEach(row=>row.forEach((v,i)=>{if(!v)row[i]=L[Math.floor(Math.random()*26)]}));
+  }
+  make();
+  root.innerHTML=`<p>Busca las partes del cuerpo 🔍. Toca la <b>primera</b> letra y luego la <b>última</b> letra de la palabra (derecha ➡️, abajo ⬇️ o en diagonal ↘️).</p><div class="wl"></div><div class="ws" style="grid-template-columns:repeat(${N},1fr)"></div><div class="feedback"></div><p><button class="next nw">🔄 New puzzle</button></p>`;
+  const wl=root.querySelector(".wl"),ws=root.querySelector(".ws"),fb=root.querySelector(".feedback");
+  words.forEach(w=>wl.appendChild(el(`<span data-w="${w}">${w.toLowerCase()}</span>`)));
+  const cells=[];let start=null,found=new Set();
+  for(let r=0;r<N;r++)for(let c=0;c<N;c++){
+    const b=el(`<button>${grid[r][c]}</button>`);cells.push(b);
+    b.onclick=()=>{
+      if(!start){start=[r,c];b.classList.add("st");return}
+      const [sr,sc]=start;start=null;cells.forEach(x=>x.classList.remove("st"));
+      const dr=r-sr,dc=c-sc,len=Math.max(Math.abs(dr),Math.abs(dc))+1;
+      if(!(dr===0||dc===0||Math.abs(dr)===Math.abs(dc))){fb.textContent="❌ Try again: choose a straight line.";return}
+      const sr2=Math.sign(dr),sc2=Math.sign(dc);let s="",idx=[];
+      for(let i=0;i<len;i++){s+=grid[sr+sr2*i][sc+sc2*i];idx.push((sr+sr2*i)*N+sc+sc2*i)}
+      const rev=[...s].reverse().join("");const w=words.includes(s)?s:words.includes(rev)?rev:null;
+      if(w&&!found.has(w)){found.add(w);idx.forEach(i=>cells[i].classList.add("fd"));wl.querySelector(`[data-w="${w}"]`).classList.add("fd");award(10);speak(w.toLowerCase());
+        fb.textContent="✅ "+w.toLowerCase()+"! "+found.size+" / "+words.length;if(found.size===words.length){fb.textContent="🎉 You found them all!";good()}}
+      else fb.textContent="❌ Not a word. Try again!";
+    };
+    ws.appendChild(b);
+  }
+  root.querySelector(".nw").onclick=()=>wordSearch(root);
+}
+/* ---- Hangman ---- */
+const HW=[["cough","tos 😷"],["headache","dolor de cabeza 🤕"],["rash","erupción en la piel 🔴"],["throat","garganta 😫"],["temperature","fiebre 🌡️"],["earache","dolor de oído 👂"],["toothache","dolor de muelas 🦷"],["stomach","estómago 🫃"],["finger","dedo ☝️"],["mouth","boca 👄"],["knee","rodilla 🦿"],["face","cara 🙂"],["hurts","duele 🤕"],["sick","mal / con náuseas 🤮"],["runny","con moco 🤧"],["teeth","dientes 🦷🦷"],["feet","pies 🦶🦶"]];
+function hangman(root){
+  const [w,hint]=HW[Math.floor(Math.random()*HW.length)];let lives=6;const got=new Set();
+  root.innerHTML=`<p>Adivina la palabra 🔤. Pista: <b>${hint}</b></p><div class="hang"></div><div class="feedback" style="text-align:center"></div><div class="keys"></div><p><button class="next nw">🔄 New word</button></p>`;
+  const hg=root.querySelector(".hang"),fb=root.querySelector(".feedback"),keys=root.querySelector(".keys");
+  const draw=()=>{hg.innerHTML=[...w].map(ch=>got.has(ch)?ch:"_").join(" ")+"<br><span style='font-size:1.5rem;letter-spacing:.1em'>"+"❤️".repeat(lives)+"🖤".repeat(6-lives)+"</span>"};
+  draw();
+  [..."abcdefghijklmnopqrstuvwxyz"].forEach(ch=>{
+    const b=el(`<button>${ch}</button>`);
+    b.onclick=()=>{
+      if(lives<=0||[...w].every(c=>got.has(c)))return;b.disabled=true;
+      if(w.includes(ch)){b.classList.add("ok");got.add(ch);draw();
+        if([...w].every(c=>got.has(c))){fb.textContent="🎉 Yes! "+w;award(15);speak(w);good()}}
+      else{b.classList.add("no");lives--;draw();if(lives<=0){fb.textContent="😢 The word was: "+w;speak(w)}}
+    };keys.appendChild(b);
+  });
+  root.querySelector(".nw").onclick=()=>hangman(root);
+}
+/* ---- Sentence builder ---- */
+const BS=["You must take the medicine.","You mustn't get out of bed.","Can I go out?","She has got a sore throat.","My back hurts.","I can't eat. I feel sick.","Look at him.","Talk to her.","Yes, she can.","No, you can't.","You must stay in bed.","He's got a high temperature.","We mustn't eat any food today.","They can't go to the party."];
+function builder(root){
+  const order=shuffle(BS).slice(0,8);let i=0,hits=0;
+  function show(){
+    if(i>=order.length){root.innerHTML=`<div class="card result"><div class="big">🏆</div><h3>Sentence master!</h3><p>¡Genial, estás listo para el examen! 🌟</p><button class="next" id="again">🔄 Play again</button></div>`;confetti(40);root.querySelector("#again").onclick=()=>builder(root);return}
+    const s=order[i],ws=s.split(" "),chips=shuffle(ws.map((w,k)=>({w,k})));let cur=[];
+    root.innerHTML=`<div class="bar"><div style="width:${i/order.length*100}%"></div></div><p>🧩 Toca las palabras en el orden correcto (${i+1}/${order.length}). Toca una palabra de arriba para sacarla.</p><div class="built"></div><div class="pool"></div><div class="feedback"></div><div class="nx"></div>`;
+    const bu=root.querySelector(".built"),po=root.querySelector(".pool"),fb=root.querySelector(".feedback");
+    function draw(){
+      bu.innerHTML="";po.innerHTML="";
+      cur.forEach(c=>{const b=el(`<button>${c.w}</button>`);b.onclick=()=>{cur=cur.filter(x=>x!==c);draw()};bu.appendChild(b)});
+      chips.forEach(c=>{const b=el(`<button>${c.w}</button>`);b.disabled=cur.includes(c);b.onclick=()=>{cur.push(c);draw()};po.appendChild(b)});
+      if(cur.length===ws.length){
+        if(cur.map(c=>c.w).join(" ")===s){fb.textContent="✅ "+s;award(10);speak(s);good();po.querySelectorAll("button").forEach(b=>b.disabled=true);
+          root.querySelector(".nx").innerHTML='<button class="next">Next ➜</button>';root.querySelector(".nx .next").onclick=()=>{i++;show()}}
+        else{fb.textContent="❌ Not yet. Try a different order!"}
+      }else fb.textContent="";
+    }
+    draw();
+  }
+  show();
+}
+/* ---- Spelling bee ---- */
+const SB=[["ear","oreja"],["eye","ojo"],["nose","nariz"],["mouth","boca"],["tooth","diente"],["knee","rodilla"],["stomach","estómago"],["finger","dedo"],["cough","tos"],["headache","dolor de cabeza"],["rash","erupción"],["temperature","fiebre"],["toothache","dolor de muelas"],["earache","dolor de oído"],["throat","garganta"],["hurts","duele"]];
+function bee(root){
+  const list=shuffle(SB).slice(0,8);let i=0,hits=0;
+  function show(){
+    if(i>=list.length){root.innerHTML=`<div class="card result"><div class="big">${hits>=6?"🏆":"💪"}</div><h3>${hits} / ${list.length}</h3><p>${hits>=6?"¡Genial, estás listo para el examen!":"¡Sigue practicando!"}</p><button class="next" id="again">🔄 Play again</button></div>`;if(hits>=6)confetti(40);root.querySelector("#again").onclick=()=>bee(root);return}
+    const [w,es]=list[i];
+    root.innerHTML=`<div class="bar"><div style="width:${i/list.length*100}%"></div></div><div class="card"><p>🐝 Escucha y escribe la palabra (${i+1}/${list.length})</p><p><button class="say" style="width:56px;height:56px;font-size:1.6rem" data-s="${w}">🔊</button> <small>Pista: ${es}</small></p><input class="gap" style="width:16ch;font-size:1.4rem" placeholder="${"_".repeat(w.length)}" autocomplete="off" autocapitalize="off" spellcheck="false"> <button class="next ck">Check</button><div class="feedback"></div><div class="nx"></div></div>`;
+    const inp=root.querySelector(".gap"),fb=root.querySelector(".feedback");speak(w);inp.focus();
+    const check=()=>{
+      if(root.querySelector(".nx button"))return;
+      if(norm(inp.value)===norm(w)){hits++;inp.classList.add("ok");fb.textContent="✅ "+w;award(10);good()}
+      else{inp.classList.add("bad");fb.innerHTML="❌ It's <b>"+w+"</b>"}
+      root.querySelector(".nx").innerHTML='<button class="next">Next ➜</button>';root.querySelector(".nx .next").onclick=()=>{i++;show()};
+    };
+    root.querySelector(".ck").onclick=check;inp.addEventListener("keydown",e=>{if(e.key==="Enter")check()});
+  }
+  show();
+}
+const canItems=[
+ ["“Can I go out?” You want to say YES ✅","Of course!",["Of course!","I'm afraid not.","Yes, I mustn't."]],
+ ["“Can I have a biscuit?” You want to say NO ❌","I'm afraid not.",["Sure, no problem!","I'm afraid not.","Of course!"]],
+ ["“Can she go to the concert?” YES ✅","Yes, she can.",["Yes, she can.","No, she can't.","Yes, she must."]],
+ ["“Can he use your laptop?” NO ❌","No, he can't.",["Yes, he can.","No, he can't.","No, he must."]],
+ ["“Can we go swimming?” YES ✅","Yes, you can.",["Yes, you can.","No, you can't.","Yes, we cans."]],
+ ["“Can I use your pen?” YES ✅","Sure, no problem!",["Sure, no problem!","No, sorry.","I'm afraid not."]],
+ ["“Can Toni and Lola go to the cinema?” NO ❌","No, they can't.",["Yes, they can.","No, they can't.","No, they must."]],
+ ["“Can I stay at home today?” NO ❌","No, sorry.",["No, sorry.","Of course!","Sure, no problem!"]]
+].map(x=>({q:"🙋 "+x[0],a:x[1],options:x[2],tip:"",say:x[1]}));
+const fixItems=[
+ ["You must take the medicine.","You must to take the medicine.","You musts take the medicine."],
+ ["I like her.","I like she.","I like hers."],
+ ["Look at him.","Look at he.","Look at his."],
+ ["She has got a sore throat.","She have got a sore throat.","She has get a sore throat."],
+ ["My back hurts.","My back hurt.","My back is hurts."],
+ ["You mustn't eat any food today.","You mustn't to eat any food today.","You not must eat any food today."],
+ ["We have two feet.","We have two foots.","We have two feets."],
+ ["She brushes her teeth.","She brushes her tooths.","She brushes her tooth."],
+ ["Can she go to the concert?","Can she goes to the concert?","She can go the concert?"],
+ ["Yes, she can.","Yes, she cans.","Yes, she do."],
+ ["I've got earache.","I've got a earache.","I've got earaches."],
+ ["Talk to us.","Talk to we.","Talk to our."]
+].map(x=>({q:"🕵️ Which sentence is correct?",a:x[0],options:x,tip:"",say:x[0]}));
+const GAMES={
+ pic:r=>runQuiz(r,transQuiz(symp,"What is it in English?"),{}),
+ bodyq:r=>runQuiz(r,transQuiz(bodyList,"What is it in English?"),{}),
+ mem:memoryGame,
+ pron:r=>runQuiz(r,prItems,{fixed:true}),
+ mm:r=>runQuiz(r,mm,{fixed:true,cls:t=>"mm "+(t==="must"?"m":"mn")}),
+ ws:wordSearch,hang:hangman,build:builder,bee:bee,
+ can:r=>runQuiz(r,canItems,{}),
+ fix:r=>runQuiz(r,fixItems,{})
+};
+function startGame(k){GAMES[k]($("#gamearea"))}
+$("#gtabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+ document.querySelectorAll("#gtabs button").forEach(x=>x.classList.toggle("on",x===b));startGame(b.dataset.g)});
+startGame("pic");
+</script>
+</body>
+</html>
+
+</body></html>
